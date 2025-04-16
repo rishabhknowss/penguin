@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Menu, X, Search, Bell, User } from "lucide-react"
+import { Menu, X, Search, Bell, User, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
@@ -56,7 +56,11 @@ export function Navigation() {
           <Button variant="ghost" size="icon" className="text-white/80 hover:text-primary">
             <User className="h-5 w-5" />
           </Button>
-          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium">Connect Wallet</Button>
+            <a href="https://github.com/apps/penguin-space-bot" target="_blank" rel="noopener noreferrer">
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium">
+              <Github />Install Bot
+            </Button>
+            </a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -106,9 +110,9 @@ export function Navigation() {
                   <User className="h-5 w-5" />
                 </Button>
               </div>
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium">
-                Connect Wallet
-              </Button>
+             <a href="https://github.com/apps/penguin-space-bot"> <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium">
+                Install Penguin
+              </Button></a>
             </div>
           </div>
         </motion.div>

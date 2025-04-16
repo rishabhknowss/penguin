@@ -1,6 +1,6 @@
 # PENGUIN ❄️
 
-> *Algora but onchain. Simple as that.*
+> *Algora but crypto. Simple as that.*
 
 <img src="public/images/penguin-logo.png" alt="Penguin Platform" width="300" height="300" />
 
@@ -23,7 +23,7 @@ That's it. That's what we built.
 
 ## The Bot Magic ✨
 
-Our GitHub bot is where the magic happens:
+Our [Penguin Space Bot](https://github.com/apps/penguin-space-bot) is where the magic happens:
 
 ```
 /penguin 10 sol
@@ -32,10 +32,17 @@ Our GitHub bot is where the magic happens:
 Just drop this in any issue to create a 10 SOL bounty. Instantly funded. Instantly visible.
 
 ```
-/claim
+/attempt
+```
+
+Use this command to signal you're working on the issue. No more duplicate efforts.
+
+```
+/claim [PR]
 ```
 
 Solved the issue? Claim your bounty with one command. No forms. No waiting.
+
 
 ## Why It Slaps 🔥
 
