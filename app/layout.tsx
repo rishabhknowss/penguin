@@ -11,9 +11,17 @@ const fontPoppins = Poppins({
 })
 
 export const metadata = {
-  title: "Penguin | Algora but Onchain",
+  title: "Penguin | Instant github bounties on solana",
   description: "The premium onchain bounty platform for open source contributions",
-  generator: "v0.dev",
+  icons: {
+    icon: [
+      { url: "/images/penguin-logo.png" },
+      { url: "/images/penguin-logo.png", sizes: "56x56", type: "image/png" },
+      { url: "/images/penguin-logo.png", sizes: "56x56", type: "image/png" }
+    ],
+    apple: { url: "/images/penguin-logo.png", type: "image/png" },
+    shortcut: { url: "/images/penguin-logo.png" }
+  }
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
