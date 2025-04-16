@@ -5,6 +5,7 @@ import { GithubIntegration } from "@/components/github-integration"
 import { BotWorkflow } from "@/components/bot-workflow"
 import { FeaturedRepos } from "@/components/featured-repos"
 import { Footer } from "@/components/footer"
+import { Waitlist } from "@/components/waitlist"
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <BotWorkflow />
       <FeaturedRepos />
       <Footer />
+      <Waitlist />
     </main>
   )
 }
