@@ -19,10 +19,15 @@ export function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    interface MousePosition {
+      x: number;
+      y: number;
+    }
+
+    const handleMouseMove = (e: MouseEvent): void => {
       setMousePosition({
-        x: e.clientX,
-        y: e.clientY
+      x: e.clientX,
+      y: e.clientY
       })
     }
     
