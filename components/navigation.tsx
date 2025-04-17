@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
@@ -13,10 +13,27 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false)
 
+  // Add useEffect to show the waitlist after 3 seconds
+  useEffect(() => {
+    // Check if the user has already joined the waitlist
+    const hasJoined = localStorage.getItem('penguin_waitlist_joined') === 'true'
+    
+    // Only show the popup if they haven't joined yet
+    if (!hasJoined) {
+      // Set a timeout to show the waitlist modal after 3 seconds
+      const timer = setTimeout(() => {
+        setIsWaitlistOpen(true)
+      }, 3000)
+      
+      // Clear the timeout if the component unmounts
+      return () => clearTimeout(timer)
+    }
+  }, []) // Empty dependency array means this runs once on mount
+
   const menuItems = [
     { name: "Home", href: "/" },
     { name: "Explore", href: "/explore" },
-    { name: "Repositories", href: "/repositories" }, // Replace Repositories with Join Waitlist
+    { name: "Repositories", href: "/repositories" }, 
     { name: "Bounties", href: "/bounties" },
     { name: "About", href: "/about" },
   ]
@@ -139,7 +156,7 @@ export function Navigation() {
       </header>
 
       {/* Waitlist Modal */}
-      {isWaitlistOpen && <Waitlist isVisible={isWaitlistOpen} setIsVisible={setIsWaitlistOpen} />}
+      <Waitlist isVisible={isWaitlistOpen} setIsVisible={setIsWaitlistOpen} />
     </>
   )
 }
