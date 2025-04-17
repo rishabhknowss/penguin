@@ -6,8 +6,12 @@ import { X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import emailjs from '@emailjs/browser'
 
-export function Waitlist() {
-  const [isVisible, setIsVisible] = useState(false)
+interface WaitlistProps {
+  isVisible: boolean;
+  setIsVisible: (value: boolean) => void;
+}
+
+export function Waitlist({ isVisible, setIsVisible }: WaitlistProps) {
   const [email, setEmail] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -19,15 +23,9 @@ export function Waitlist() {
     if (publicKey) {
       emailjs.init(publicKey);
     }
-
-    const timer = setTimeout(() => {
-      setIsVisible(true)
-    }, 3000)
-
-    return () => clearTimeout(timer)
   }, [])
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     
     if (!email.trim()) {
@@ -90,7 +88,7 @@ export function Waitlist() {
       localStorage.setItem('penguin_waitlist_email', email)
       localStorage.setItem('penguin_waitlist_joined', 'true')
       
-    } catch (err: unknown) {
+    } catch (err) {
       console.error("EmailJS error:", err)
       if (err instanceof Error) {
         setError(err.message)
