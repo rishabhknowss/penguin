@@ -57,7 +57,7 @@ export function Navigation() {
             <User className="h-5 w-5" />
           </Button>
             <a href="https://github.com/apps/penguin-space-bot" target="_blank" rel="noopener noreferrer">
-            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium">
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium cursor-pointer">
               <Github />Install Bot
             </Button>
             </a>
@@ -110,7 +110,7 @@ export function Navigation() {
                   <User className="h-5 w-5" />
                 </Button>
               </div>
-             <a href="https://github.com/apps/penguin-space-bot"> <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium">
+             <a href="https://github.com/apps/penguin-space-bot"> <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium cursor-pointer">
                 Install Penguin
               </Button></a>
             </div>

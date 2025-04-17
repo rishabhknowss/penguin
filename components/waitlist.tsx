@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import emailjs from '@emailjs/browser'
 
 export function Waitlist() {
   const [isVisible, setIsVisible] = useState(false)
@@ -11,8 +12,14 @@ export function Waitlist() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
-
+  
   useEffect(() => {
+    // Initialize EmailJS with the public key from environment variables
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+    if (publicKey) {
+      emailjs.init(publicKey);
+    }
+
     const timer = setTimeout(() => {
       setIsVisible(true)
     }, 3000)
@@ -36,13 +43,60 @@ export function Waitlist() {
     setIsLoading(true)
     setError("")
     
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      // Format date in a readable way
+      const currentDate = new Date()
+      const formattedDate = currentDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+      
+      // Get service ID from environment variables
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      
+      // Get template IDs from environment variables
+      const adminTemplateId = process.env.NEXT_PUBLIC_EMAILJS_ADMIN_TEMPLATE_ID;
+      const userTemplateId = process.env.NEXT_PUBLIC_EMAILJS_USER_TEMPLATE_ID;
+      
+      if (!serviceId || !adminTemplateId || !userTemplateId) {
+        throw new Error("EmailJS configuration is missing");
+      }
+      
+      // Create the template parameters
+      const templateParams = {
+        email_address: email,
+        time_stamp: formattedDate,
+        reply_to: email
+      };
+      
+      // Send notification email to admin (you)
+      console.log("Sending admin notification email...");
+      await emailjs.send(serviceId, adminTemplateId, templateParams);
+      
+      // Send confirmation email to the user
+      console.log("Sending user confirmation email...");
+      await emailjs.send(serviceId, userTemplateId, templateParams);
+      
+      console.log("Emails sent successfully");
+      
+      // Handle success
       setIsSubmitted(true)
       setIsLoading(false)
-    } catch (err) {
-      setError("Something went wrong. Please try again.")
+      
+      // Store email in localStorage
+      localStorage.setItem('penguin_waitlist_email', email)
+      localStorage.setItem('penguin_waitlist_joined', 'true')
+      
+    } catch (err: unknown) {
+      console.error("EmailJS error:", err)
+      if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError("Something went wrong. Please try again.")
+      }
       setIsLoading(false)
     }
   }
