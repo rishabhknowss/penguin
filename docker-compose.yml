@@ -45,16 +45,3 @@ volumes:
       type: none
       o: bind
       device: ${PWD}
-
-  # Add additional services as needed (database, redis, etc.)
-  # db:
-  #   image: postgres:14
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   environment:
-  #     - POSTGRES_PASSWORD=postgres
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_DB=nextjs
-  #   profiles: ["dev", "prod"]  # Available in both environments
-# volumes:
-#   postgres_data:
