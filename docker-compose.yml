@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  # Development service
+  nextjs-dev:
+    build:
+      context: .
+      target: deps
+      dockerfile: Dockerfile
+    volumes:
+      - app-code:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+      - NEXT_WEBPACK_POLLING=true
+    command: npm run dev
+    profiles: ["dev"]
+    # Add these settings for better file watching
+    init: true
+    stdin_open: true
+    tty: true
+
+  # Production service
+  nextjs-prod:
+    build:
+      context: .
+      target: runner
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    profiles: ["prod"]
+
+volumes:
+  app-code:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}
+
+  # Add additional services as needed (database, redis, etc.)
+  # db:
+  #   image: postgres:14
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_DB=nextjs
+  #   profiles: ["dev", "prod"]  # Available in both environments
+# volumes:
+#   postgres_data:
